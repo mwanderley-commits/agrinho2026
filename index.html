@@ -1,182 +1,124 @@
-
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agro Forte, Futuro Sustentável</title>
+    <title>Agro Forte - Futuro Sustentável</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <header>
+        <h1>Agro Forte, Futuro Sustentável</h1>
+    </header>
 
-<div class="container">
-    <h1>🌱 Agro Forte, Futuro Sustentável</h1>
+    <main>
+        <p id="instructions">Clique nas plantas para colher de forma sustentável!</p>
+        <div id="field">
+            <div class="plant" data-grown="0"></div>
+            <div class="plant" data-grown="0"></div>
+            <div class="plant" data-grown="0"></div>
+            <div class="plant" data-grown="0"></div>
+            <div class="plant" data-grown="0"></div>
+        </div>
 
-    <div class="painel">
-        <p>Produção: <span id="producao">50</span></p>
-        <p>Meio Ambiente: <span id="ambiente">50</span></p>
-    </div>
+        <p>Pontos: <span id="score">0</span></p>
+        <button id="resetButton">Recomeçar</button>
+    </main>
 
-    <div class="cenario">
-        <h2 id="pergunta">
-            Sua fazenda precisa aumentar a produtividade. O que fazer?
-        </h2>
-    </div>
+    <footer>
+        <p>Promovendo o agro sustentável com diversão!</p>
+    </footer>
 
-    <div class="botoes">
-        <button onclick="escolha('intensiva')">
-            🚜 Expandir produção intensiva
-        </button>
-
-        <button onclick="escolha('sustentavel')">
-            🌿 Investir em agricultura sustentável
-        </button>
-    </div>
-
-    <p id="mensagem"></p>
-
-    <button id="reiniciar" onclick="reiniciar()">
-        Jogar Novamente
-    </button>
-</div>
-
-<script>
-let producao = 50;
-let ambiente = 50;
-
-function atualizar() {
-    document.getElementById("producao").textContent = producao;
-    document.getElementById("ambiente").textContent = ambiente;
-
-    if (producao >= 100 && ambiente >= 70) {
-        fim("🏆 Vitória! Você alcançou alta produção com sustentabilidade.");
-    }
-
-    if (ambiente <= 0) {
-        fim("🌎 O meio ambiente foi degradado. Sua fazenda entrou em crise.");
-    }
-
-    if (producao <= 0) {
-        fim("📉 A produção ficou muito baixa. A fazenda não sobreviveu.");
-    }
-}
-
-function escolha(tipo) {
-    if (tipo === "intensiva") {
-        producao += 15;
-        ambiente -= 10;
-        document.getElementById("mensagem").textContent =
-            "A produção aumentou, mas houve impacto ambiental.";
-    }
-
-    if (tipo === "sustentavel") {
-        producao += 8;
-        ambiente += 10;
-        document.getElementById("mensagem").textContent =
-            "Tecnologias sustentáveis preservaram os recursos naturais.";
-    }
-
-    atualizar();
-}
-
-function fim(texto) {
-    document.getElementById("mensagem").textContent = texto;
-
-    const botoes = document.querySelectorAll("button");
-    botoes.forEach(botao => {
-        if (botao.id !== "reiniciar") {
-            botao.disabled = true;
-        }
-    });
-
-    document.getElementById("reiniciar").style.display = "inline-block";
-}
-
-function reiniciar() {
-    producao = 50;
-    ambiente = 50;
-
-    document.getElementById("mensagem").textContent = "";
-
-    const botoes = document.querySelectorAll("button");
-    botoes.forEach(botao => {
-        botao.disabled = false;
-    });
-
-    document.getElementById("reiniciar").style.display = "none";
-
-    atualizar();
-}
-
-atualizar();
-</script>
-
+    <script src="script.js"></script>
 </body>
-</html>
-* {
+</html>body {
+    font-family: Arial, sans-serif;
+    background-color: #e0f7e9;
+    color: #2e5f2f;
+    text-align: center;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(#dff6dd, #b7e4c7);
+header {
+    background-color: #4caf50;
+    color: white;
+    padding: 20px 0;
+}
+
+#field {
     display: flex;
     justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    text-align: center;
-}
-
-.container {
-    background: white;
-    padding: 30px;
-    border-radius: 20px;
-    width: 90%;
-    max-width: 700px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-}
-
-h1 {
-    color: #2d6a4f;
-    margin-bottom: 20px;
-}
-
-.painel {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-    font-size: 1.2rem;
-    font-weight: bold;
-}
-
-.cenario {
+    flex-wrap: wrap;
     margin: 20px 0;
 }
 
-button {
-    background: #2d6a4f;
-    color: white;
-    border: none;
-    padding: 12px 18px;
+.plant {
+    width: 60px;
+    height: 60px;
     margin: 10px;
+    background-color: #a3d977;
     border-radius: 10px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.plant.grown {
+    background-color: #4caf50;
+    transform: scale(1.2);
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 button:hover {
-    background: #40916c;
-}
+    background-color: #45a049;
+}const plants = document.querySelectorAll('.plant');
+const scoreDisplay = document.getElementById('score');
+const resetButton = document.getElementById('resetButton');
 
-#mensagem {
-    margin-top: 20px;
-    font-size: 1.1rem;
-    font-weight: bold;
-}
+let score = 0;
 
-#reiniciar {
-    display: none;
-    background: #f77f00;
-}
+// Crescimento das plantas automaticamente
+plants.forEach(plant => {
+    setInterval(() => {
+        let grown = parseInt(plant.dataset.grown);
+        if (grown < 3) {
+            grown++;
+            plant.dataset.grown = grown;
+            if (grown === 3) plant.classList.add('grown');
+        }
+    }, Math.random() * 3000 + 2000); // Cresce entre 2 e 5 segundos
+});
+
+// Colher plantas
+plants.forEach(plant => {
+    plant.addEventListener('click', () => {
+        let grown = parseInt(plant.dataset.grown);
+        if (grown === 3) {
+            score += 10;
+            scoreDisplay.textContent = score;
+            plant.dataset.grown = 0;
+            plant.classList.remove('grown');
+        } else {
+            alert('A planta ainda não está pronta para colher!');
+        }
+    });
+});
+
+// Resetar jogo
+resetButton.addEventListener('click', () => {
+    score = 0;
+    scoreDisplay.textContent = score;
+    plants.forEach(plant => {
+        plant.dataset.grown = 0;
+        plant.classList.remove('grown');
+    });
+});
